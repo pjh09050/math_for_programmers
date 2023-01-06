@@ -1,6 +1,7 @@
 from math import sqrt, pi
 import matplotlib
 import os
+import numpy as np
 from matplotlib.patches import Polygon, FancyArrowPatch
 from matplotlib.collections import PatchCollection
 import matplotlib.pyplot as plt
@@ -158,3 +159,11 @@ def draw3d(*objects, origin=True, axes=True, width=6, save_as=None, azim=None, e
         plt.savefig(save_as)
 
     plt.show()
+
+def  do_3d_projection(self, renderer):
+    xs3d, ys3d, zs3d = self._verts3d
+    xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, self.axes.M)
+    self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
+    FancyArrowPatch.draw(self, renderer)
+
+    return np.min(zs)
