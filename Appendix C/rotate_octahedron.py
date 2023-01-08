@@ -63,7 +63,7 @@ while True:
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
 
-    degrees_per_second = 360./5.
+    degrees_per_second = 360./5. # 장면이 5초마다 1바퀴(360도)를 온전하게 회전하기를 원한다.
     degrees_per_millisecond = degrees_per_second / 1000.
     milliseconds = clock.tick()
     degrees = degrees_per_millisecond * milliseconds
