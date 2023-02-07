@@ -25,6 +25,7 @@ class PolygonModel():
         return [vectors.add((self.x,self.y),v) for v in rotated]
 
     def move(self, milliseconds):
+        # 소행성 속도와 초단위 경과 시간을 곱해서 두 변화량을 계산할 수 있다.
         dx, dy = self.vx * milliseconds / 1000.0, self.vy * milliseconds / 1000.0
         self.x, self.y = vectors.add((self.x,self.y), (dx,dy))
         if self.x < -10:
@@ -71,7 +72,7 @@ class Asteroid(PolygonModel):
         vs = [vectors.to_cartesian((uniform(0.5,1.0), 2 * pi * i / sides))
                 for i in range(0,sides)]
         super().__init__(vs)
-        self.vx = uniform(-1,1)
+        self.vx = uniform(-1,1)  # x속도와 y속도는 -1과 1 사이의 랜덤 값으로 설정된다.
         self.vy = uniform(-1,1)
         self.angular_velocity = uniform(-pi/2,pi/2)
 
@@ -170,10 +171,10 @@ def main(asteroids=default_asteroids):
 
         # UPDATE THE GAME STATE
 
-        milliseconds = clock.get_time()
+        milliseconds = clock.get_time() # 지난 프레임 이후 밀리초가 얼마만큼 경과했는지 확인한다.
         keys = pygame.key.get_pressed()
 
-        for ast in asteroids:
+        for ast in asteroids:  # 모든 소행성을 호출해 각 소행성의 속도에 따라 위치를 갱신한다.
             ast.move(milliseconds)
 
         if keys[pygame.K_LEFT]:
